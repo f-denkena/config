@@ -36,8 +36,8 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # case insensitive tab
 
 # enable vcs info
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats " %b"
-zstyle ':vcs_info:*' actionformats "%b [%a] %m%u%c "
+zstyle ':vcs_info:*' formats "%s %r/%b"
+zstyle ':vcs_info:*' actionformats "%s %r/%b [%a] %u%c "
 
 # History configurations
 HISTFILE=~/.zsh_history
