@@ -34,6 +34,11 @@ compinit -d ~/.cache/zcompdump
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # case insensitive tab completion
 
+# enable vcs info
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats " %b"
+zstyle ':vcs_info:*' actionformats "%b [%a] %m%u%c "
+
 # History configurations
 HISTFILE=~/.zsh_history
 HISTSIZE=100
@@ -77,7 +82,8 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PROMPT=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)──}(%B%F{%(#.red.blue)}%n%(#. ☠️ .☀️ )%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
+    setopt prompt_subst
+    PS1=$'%F{%(#.blue.green)}┌──${debian_chroot:+($debian_chroot)──}(%B%F{%(#.red.blue)}%n%(#. ☠️ .☀️ )%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}] ${vcs_info_msg_0_}\n└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
     RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 
     # enable syntax-highlighting
@@ -153,6 +159,7 @@ precmd() {
 	    print ""
 	fi
     fi
+    vcs_info
 }
 
 # enable color support of ls, less and man, and also add handy aliases
@@ -193,3 +200,4 @@ if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
 fi
 
 export PATH=$PATH:/usr/sbin/
+EDITOR="nvim"
