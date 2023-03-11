@@ -201,3 +201,6 @@ fi
 
 export PATH=$PATH:/usr/sbin/
 EDITOR="nvim"
+alias jb="jekyll build -s /var/www/$HOST/source -d /var/www/$HOST/htdocs"
+alias tw.update='tripwire --update -r `echo $(ls -t /var/lib/tripwire/report/* | head -1)`'
+
